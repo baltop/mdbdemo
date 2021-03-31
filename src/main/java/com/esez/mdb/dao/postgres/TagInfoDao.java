@@ -100,9 +100,10 @@ public class TagInfoDao {
 
                 return ps;
             }
-        },holder);
+        }, holder);
 
-        int newUserId=holder.getKey().intValue();
+        int newUserId=(int)holder.getKeys().get("id");
+        // int newUserId=holder.getKey().intValue();   postgres 는 전체를 필드를 돌려준다.
         user.setId(newUserId);
         return user;
     }
