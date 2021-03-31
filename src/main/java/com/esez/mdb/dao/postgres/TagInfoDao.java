@@ -108,7 +108,7 @@ public class TagInfoDao {
         return user;
     }
     
-    
+    // jdbc batch update인데 테스트 안해봄.
     public void createList(List<User> userList) {
         List<Object[]> batch = new ArrayList<Object[]>();
         for (User user:userList) {
