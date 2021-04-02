@@ -58,6 +58,7 @@ public class TiberoDBConfig {
                 .persistenceUnit("tiberoPU")
                 .build();
     }
+    
  
     @Bean(name = "tiberoTransactionManager")
     public PlatformTransactionManager tiberoTransactionManager(@Qualifier("tiberoEntityManager") EntityManagerFactory entityManagerFactory) {
