@@ -31,6 +31,42 @@ import java.util.stream.Collectors;
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "tiberoEntityManager", transactionManagerRef = "tiberoTransactionManager", basePackages = "com.esez.mdb.repository.tibero")
 public class TiberoDBConfig {
+
+	@Autowired
+    private Environment env;
+ 
+    @Bean
+    public DataSource tiberoDataSource() {
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
+        dataSource.setDriverClassName(env.getProperty("spring.tibero.datasource.driver-class-name"));
+        dataSource.setUrl(env.getProperty("spring.tibero.datasource.url"));
+        dataSource.setUsername(env.getProperty("spring.tibero.datasource.username"));
+        dataSource.setPassword(env.getProperty("spring.tibero.datasource.password"));
+        return dataSource;
+    }
+ 
+    @Bean(name = "tiberoEntityManager")
+    public LocalContainerEntityManagerFactoryBean tiberoEntityManagerFactory(EntityManagerFactoryBuilder builder) {
+        return builder
+                .dataSource(tiberoDataSource())
+                .properties(hibernateProperties())
+                .packages(User.class)
+                .persistenceUnit("tiberoPU")
+                .build();
+    }
+    
+ 
+    @Bean(name = "tiberoTransactionManager")
+    public PlatformTransactionManager tiberoTransactionManager(@Qualifier("tiberoEntityManager") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
+    }
+ 
+    private Map hibernateProperties() {
+        Resource resource = new ClassPathResource("hibernate.properties");
+ 
+        try {
+            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+            
 	@Autowired
 	private Environment env;
 
@@ -66,6 +102,7 @@ public class TiberoDBConfig {
 
 		try {
 			Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+
 			Map map = properties.entrySet().stream()
 					.collect(Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue()));
 			map.put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");

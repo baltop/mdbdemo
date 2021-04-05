@@ -49,6 +49,7 @@
 			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
 		<!-- <dependency> <groupId>com.tmax</groupId> <artifactId>tibero6-jdbc</artifactId> 
 			<version>FS06</version> <scope>system</scope> <systemPath>${project.basedir}/lib/tibero6-jdbc.jar</systemPath> 
 			</dependency> mvn install:install-file -Dfile=./lib/tibero6-jdbc.jar -Dpackaging=jar 
