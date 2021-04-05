@@ -12,6 +12,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -28,15 +29,13 @@ import java.util.stream.Collectors;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "postgresEntityManager", 
-						transactionManagerRef = "postgresTransactionManager", 
-						basePackages = "com.esez.mdb.repository.postgres")
+@EnableJpaRepositories(entityManagerFactoryRef = "postgresEntityManager", transactionManagerRef = "postgresTransactionManager", basePackages = "com.esez.mdb.repository.postgres")
 public class PostgresDBConfig {
 	@Autowired
 	private Environment env;
 
 	@Primary
-	@Bean
+	@Bean(name = "postgresDB")
 	public DataSource postgresDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName(env.getProperty("spring.postgres.datasource.driver-class-name"));
@@ -44,6 +43,12 @@ public class PostgresDBConfig {
 		dataSource.setUsername(env.getProperty("spring.postgres.datasource.username"));
 		dataSource.setPassword(env.getProperty("spring.postgres.datasource.password"));
 		return dataSource;
+	}
+
+	@Primary
+	@Bean(name = "jdbcTemplatePostgres")
+	public JdbcTemplate jdbcTemplate1(@Qualifier("postgresDB") DataSource ds) {
+		return new JdbcTemplate(ds);
 	}
 
 	@Primary
@@ -68,14 +73,12 @@ public class PostgresDBConfig {
 
 			Map map = properties.entrySet().stream()
 					.collect(Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue()));
-            map.put("hibernate.dialect",
-                    "org.hibernate.dialect.PostgreSQLDialect");
+			map.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 			return map;
 		} catch (IOException e) {
-        	Map map = new HashMap();
-            map.put("hibernate.dialect",
-                    "org.hibernate.dialect.PostgreSQLDialect");
-            return map;
+			Map map = new HashMap();
+			map.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+			return map;
 		}
 	}
 }
