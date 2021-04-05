@@ -1,20 +1,27 @@
 package com.esez.mdb.model.tibero;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="sol_stat_test")
+@SequenceGenerator(sequenceName="soltestseq", name = "ziumsoltestseq", initialValue=1)
 public class SolStatTest {
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO, generator="soltestseq")
 	@Column(name = "id")
 	private int id;
 	
     @Column(name="now")
-    private String date;
+    private Date now;
     @Column(name="num")
     private String num;
     @Column(name="reason")
@@ -29,11 +36,12 @@ public class SolStatTest {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getDate() {
-		return date;
+	
+	public Date getNow() {
+		return now;
 	}
-	public void setDate(String date) {
-		this.date = date;
+	public void setNow(Date now) {
+		this.now = now;
 	}
 	public String getNum() {
 		return num;
