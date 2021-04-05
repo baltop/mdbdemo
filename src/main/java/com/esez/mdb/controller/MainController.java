@@ -47,11 +47,11 @@ public class MainController {
         String data = "";
  
         List<com.esez.mdb.model.postgres.User> users = postgresDao.findAll();
-        for(com.esez.mdb.model.postgres.User user : users) {
-            data += user.getName();
-            data += "\n";
-        }
-        System.out.println(data);
+//        for(com.esez.mdb.model.postgres.User user : users) {
+//            data += user.getName();
+//            data += "\n";
+//        }
+//        System.out.println(data);
         return users;
     }
  
