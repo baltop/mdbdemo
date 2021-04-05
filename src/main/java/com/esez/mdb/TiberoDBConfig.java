@@ -33,41 +33,6 @@ import java.util.stream.Collectors;
 public class TiberoDBConfig {
 
 	@Autowired
-    private Environment env;
- 
-    @Bean
-    public DataSource tiberoDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("spring.tibero.datasource.driver-class-name"));
-        dataSource.setUrl(env.getProperty("spring.tibero.datasource.url"));
-        dataSource.setUsername(env.getProperty("spring.tibero.datasource.username"));
-        dataSource.setPassword(env.getProperty("spring.tibero.datasource.password"));
-        return dataSource;
-    }
- 
-    @Bean(name = "tiberoEntityManager")
-    public LocalContainerEntityManagerFactoryBean tiberoEntityManagerFactory(EntityManagerFactoryBuilder builder) {
-        return builder
-                .dataSource(tiberoDataSource())
-                .properties(hibernateProperties())
-                .packages(User.class)
-                .persistenceUnit("tiberoPU")
-                .build();
-    }
-    
- 
-    @Bean(name = "tiberoTransactionManager")
-    public PlatformTransactionManager tiberoTransactionManager(@Qualifier("tiberoEntityManager") EntityManagerFactory entityManagerFactory) {
-        return new JpaTransactionManager(entityManagerFactory);
-    }
- 
-    private Map hibernateProperties() {
-        Resource resource = new ClassPathResource("hibernate.properties");
- 
-        try {
-            Properties properties = PropertiesLoaderUtils.loadProperties(resource);
-            
-	@Autowired
 	private Environment env;
 
 	@Bean(name = "tiberoDB")
