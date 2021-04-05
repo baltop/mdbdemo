@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 @EnableTransactionManagement
 @EnableJpaRepositories(entityManagerFactoryRef = "tiberoEntityManager", transactionManagerRef = "tiberoTransactionManager", basePackages = "com.esez.mdb.repository.tibero")
 public class TiberoDBConfig {
+
 	@Autowired
 	private Environment env;
 
@@ -66,6 +67,7 @@ public class TiberoDBConfig {
 
 		try {
 			Properties properties = PropertiesLoaderUtils.loadProperties(resource);
+
 			Map map = properties.entrySet().stream()
 					.collect(Collectors.toMap(e -> e.getKey().toString(), e -> e.getValue()));
 			map.put("hibernate.dialect", "org.hibernate.dialect.Oracle10gDialect");
