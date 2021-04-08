@@ -5,35 +5,44 @@ import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.esez.mdb.model.tibero.GunTest;
-import com.esez.mdb.repository.tibero.GunTestTiberoRepository;
-
+import com.esez.mdb.model.postgres.SmartGun;
+import com.esez.mdb.repository.postgres.GunTestPostgresRepository;
 
 // service 필요없으면 굳이 만들지 말것. 이 파일은  테스트용.
 @Service
 public class GunService {
 
 	@Autowired
-    private GunTestTiberoRepository gunRepository;
+    private GunTestPostgresRepository gunRepository;
 	
-	@Scheduled(fixedDelay = 5000)
-	public void insertGunTestData() {
+	
+	@Transactional
+//	@Scheduled(fixedDelay = 5000)
+	public void updateGunTestData() {
 		Random random = new Random();
-		int companyRandomCnt = 0;
-		int nameRandomCnt = 0;
-		GunTest gunTest = new GunTest();
-		String[] companyArray = {"1중대", "2중대", "3중대"};
-		String[] nameArray = {"보관", "출타자", "파견", "근무", "훈련"};
+		int idRandomCnt = 0;
+		int valueRandom = 0;
+		SmartGun smartGun = new SmartGun();
 		
-		companyRandomCnt = random.nextInt(4);
-		nameRandomCnt = random.nextInt(5);
+		idRandomCnt = random.nextInt(14)+1;
+		valueRandom = random.nextInt(100);
+//		
+//		
+		smartGun.setId(idRandomCnt);
+		smartGun.setValue(valueRandom);
+//		
+//		
+		try {
+			gunRepository.update(smartGun);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		gunTest.setCompany(companyArray[companyRandomCnt]);
-		gunTest.setName(nameArray[nameRandomCnt]);
-		gunTest.setValue(random.nextInt(100));
-		
-		gunRepository.save(gunTest);
+//		gunRepository.update(idRandomCnt,valueRandom);
+		System.out.println("---------------------------------------------------"+idRandomCnt);
 		System.out.println("insert Gun Test data");
 	}
 }
