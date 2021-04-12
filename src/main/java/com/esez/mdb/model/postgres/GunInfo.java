@@ -1,14 +1,25 @@
 package com.esez.mdb.model.postgres;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+/**
+ * @author sryong
+ *
+ */
 @Entity
 @Table(name="guninfo", schema = "zium")
 public class GunInfo {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 	@Column(name="num")
@@ -17,8 +28,9 @@ public class GunInfo {
 	private String reson;
 	@Column(name="status")
 	private String status;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/seoul")
 	@Column(name="date")
-	private String date;
+	private Date date;
 	public int getId() {
 		return id;
 	}
@@ -43,12 +55,14 @@ public class GunInfo {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
+	
 	
 	
 }

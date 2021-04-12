@@ -2,11 +2,10 @@ package com.esez.mdb.repository.postgres;
 
 import java.util.List;
 
-import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.esez.mdb.model.postgres.SmartGun;
 
@@ -23,7 +22,7 @@ public interface GunTestPostgresRepository extends JpaRepository<SmartGun, Integ
 	
 	
 	@Modifying
-	@Query("update SmartGun set value = 2 where id = 16")
+	@Query("update SmartGun set value = :#{#smartGun.value} where id = :#{#smartGun.id}")
 	int update(@Param("smartGun") SmartGun smartGun);
 	
 //	void update(@Param("value") int value, @Param("id") int id);

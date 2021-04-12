@@ -3,6 +3,8 @@ package com.esez.mdb.controller;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +48,9 @@ public class YsrController {
     @ResponseBody
     public List<GunInfo> getGunInfo(@RequestParam(value= "siteId", required = false, defaultValue = "mytable")String siteId){
 //    	return gunInfoRepository.findAll();
-    	List<GunInfo> bb = new ArrayList<>();
+    	List<GunInfo> bb = new ArrayList<>();    	
     	bb = gunInfoRepository.findByLimit();
+    	System.out.println(((GunInfo)bb.get(0)).getDate());
     	return bb;
     }
 }
