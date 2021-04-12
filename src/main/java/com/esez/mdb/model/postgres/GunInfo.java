@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 /**
  * @author sryong
  *
@@ -28,7 +26,6 @@ public class GunInfo {
 	private String reson;
 	@Column(name="status")
 	private String status;
-	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss", timezone="Asia/seoul")
 	@Column(name="date")
 	private Date date;
 	public int getId() {
