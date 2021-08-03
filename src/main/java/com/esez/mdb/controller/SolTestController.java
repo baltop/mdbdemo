@@ -18,22 +18,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esez.mdb.model.tibero.SolStatTest;
-import com.esez.mdb.repository.tibero.SolStatTestTiberoRepository;
+//import com.esez.mdb.repository.tibero.SolStatTestTiberoRepository;
 
 @RestController
 @RequestMapping("/sol/*")
 public class SolTestController {
 	
-	@Autowired
-    private SolStatTestTiberoRepository sstRepository;
+//	@Autowired
+//    private SolStatTestTiberoRepository sstRepository;
 	
-	@PostMapping("/stat")
-	@ResponseBody
-	public List<SolStatTest> getList(){
-		List<SolStatTest> testList = new ArrayList<>();
-		testList = sstRepository.findAll();
-		return testList;
-	}
+//	@PostMapping("/stat")
+//	@ResponseBody
+//	public List<SolStatTest> getList(){
+//		List<SolStatTest> testList = new ArrayList<>();
+//		testList = sstRepository.findAll();
+//		return testList;
+//	}
 	
 	@Scheduled(fixedDelay = 10000)
 	public void insertSolTestData() {
@@ -55,7 +55,7 @@ public class SolTestController {
 		solStatTest.setStatus(isOpen[isOpenRandomNo]);
 		solStatTest.setNow(now);
 		
-		sstRepository.save(solStatTest);		
+//		sstRepository.save(solStatTest);		
 	}
 	
 	@GetMapping("/resaon/{reasonType}")
@@ -71,7 +71,7 @@ public class SolTestController {
 		for(int i=0;i<reasonEnType.length;i++) {
 			reasonMap.put(reasonEnType[i], reasonKoType[i]);
 		}
-		sstList = sstRepository.findByReason(reasonMap.get(resaonType));
+//		sstList = sstRepository.findByReason(reasonMap.get(resaonType));
 		
 		return sstList;
 	}
@@ -88,7 +88,7 @@ public class SolTestController {
 		for(int i=0;i<statusEnType.length;i++) {
 			statusMap.put(statusEnType[i], statusKoType[i]);
 		}
-		sstList = sstRepository.findByStatus(statusMap.get(statusType));
+//		sstList = sstRepository.findByStatus(statusMap.get(statusType));
 	
 		return sstList;
 	}
@@ -96,7 +96,7 @@ public class SolTestController {
 	@PostMapping("/latest")
 	public List<SolStatTest> getListByLatest(){
 		List<SolStatTest> sstList = new ArrayList<>();
-		sstList = sstRepository.findByLatestTime();
+//		sstList = sstRepository.findByLatestTime();
 		return sstList;
 	}
 	

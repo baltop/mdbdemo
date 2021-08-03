@@ -23,10 +23,10 @@ import com.esez.mdb.model.tibero.IotTest;
 import com.esez.mdb.model.tibero.Test;
 import com.esez.mdb.repository.postgres.CarsPostgresRepository;
 import com.esez.mdb.repository.postgres.UserPostgresRepository;
-import com.esez.mdb.repository.tibero.CjmTestTiberoRepository;
-import com.esez.mdb.repository.tibero.IotTestTiberoRepository;
-import com.esez.mdb.repository.tibero.TestTiberoRepository;
-import com.esez.mdb.repository.tibero.UserTiberoRepository;
+//import com.esez.mdb.repository.tibero.CjmTestTiberoRepository;
+//import com.esez.mdb.repository.tibero.IotTestTiberoRepository;
+//import com.esez.mdb.repository.tibero.TestTiberoRepository;
+//import com.esez.mdb.repository.tibero.UserTiberoRepository;
 import com.sun.istack.NotNull;
  
 @RestController
@@ -55,22 +55,22 @@ public class MainController {
         return users;
     }
  
-    @Autowired
-    private UserTiberoRepository tiberoDao;
+//    @Autowired
+//    private UserTiberoRepository tiberoDao;
  
-    @GetMapping("/stanby")
-    @ResponseBody
-    public List<com.esez.mdb.model.tibero.User> getStanbyUser(){
-        String data = "";
- 
-        List<com.esez.mdb.model.tibero.User> users = tiberoDao.findAll();
-        for(com.esez.mdb.model.tibero.User user : users) {
-            data += user.getName();
-            data += "\n";
-        }
-        System.out.println(data);
-        return users;
-    }
+//    @GetMapping("/stanby")
+//    @ResponseBody
+//    public List<com.esez.mdb.model.tibero.User> getStanbyUser(){
+//        String data = "";
+// 
+//        List<com.esez.mdb.model.tibero.User> users = tiberoDao.findAll();
+//        for(com.esez.mdb.model.tibero.User user : users) {
+//            data += user.getName();
+//            data += "\n";
+//        }
+//        System.out.println(data);
+//        return users;
+//    }
     
     @Autowired
     private CarsPostgresRepository carDao;
@@ -89,22 +89,22 @@ public class MainController {
         return cars.get(0);
     }
  
-    @Autowired
-    private TestTiberoRepository testDao;
- 
-    @GetMapping("/test")
-    @ResponseBody
-    public Test getTest(){
-        String data = "";
- 
-        List<Test> tests = testDao.findAll();
-        for(Test test : tests) {
-            data += test.getName();
-            data += "\n";
-        }
-        System.out.println(data);
-        return tests.get(0);
-    }
+//    @Autowired
+//    private TestTiberoRepository testDao;
+// 
+//    @GetMapping("/test")
+//    @ResponseBody
+//    public Test getTest(){
+//        String data = "";
+// 
+//        List<Test> tests = testDao.findAll();
+//        for(Test test : tests) {
+//            data += test.getName();
+//            data += "\n";
+//        }
+//        System.out.println(data);
+//        return tests.get(0);
+//    }
     
     @PostMapping("/tempreq")
     @ResponseBody
@@ -128,11 +128,11 @@ public class MainController {
     	return hashmap;    	
     }
     
-    @Autowired
-    private IotTestTiberoRepository iotTestDao;
-    
-    @Autowired
-    private CjmTestTiberoRepository cjmTestDao;
+//    @Autowired
+//    private IotTestTiberoRepository iotTestDao;
+//    
+//    @Autowired
+//    private CjmTestTiberoRepository cjmTestDao;
     
 //    @Scheduled(fixedDelay = 60000)
 //    @RequestMapping(value="/datatest/{livingRoomNo}", method = RequestMethod.GET)
@@ -159,7 +159,7 @@ public class MainController {
     	myTest.setHumidity(humidity);
     	myTest.setTemperature(temperature);
     	    		
-    	iotTestDao.save(myTest);
+//    	iotTestDao.save(myTest);
     	cnt++;
 
     }
@@ -210,7 +210,7 @@ public class MainController {
 	    myTest.setHumidity(humidity);
 	    myTest.setTemperature(temperature);
 	        		
-	    iotTestDao.save(myTest);
+//	    iotTestDao.save(myTest);
     	
     	return "insert Data test success";
     }
@@ -223,7 +223,7 @@ public class MainController {
     	List<IotTest> latestIotTestList = null ;
     	long now = (long) System.currentTimeMillis() / 1000;
     	//long 타입을 String변환 처리 애매
-    	latestIotTestList = iotTestDao.getLatestFindBySenseTime(livingRoomNo, now);
+//    	latestIotTestList = iotTestDao.getLatestFindBySenseTime(livingRoomNo, now);
     	
     	return latestIotTestList;
     }
@@ -246,7 +246,7 @@ public class MainController {
     		endTime = tempTime;
     	}
     	
-    	betweenDataList = iotTestDao.findByLivingRoomNoAndSenseTimeBetween(livingRoomNo, startTime, endTime);
+//    	betweenDataList = iotTestDao.findByLivingRoomNoAndSenseTimeBetween(livingRoomNo, startTime, endTime);
     	return betweenDataList;
     }
     
@@ -256,7 +256,7 @@ public class MainController {
     		 @PathVariable(value="livingRoomNo", required=true) int livingRoomNo
     		){
     	List<CjmTest> dataList = new ArrayList<>();
-    	dataList = cjmTestDao.findByLivingRoomNo(livingRoomNo);
+//    	dataList = cjmTestDao.findByLivingRoomNo(livingRoomNo);
     	return dataList;
     }
     
@@ -277,7 +277,7 @@ public class MainController {
     		endTime = temp;
     	}
     	
-    	betweenDataList = cjmTestDao.qryTest(livingRoomNo, startTime, endTime);
+//    	betweenDataList = cjmTestDao.qryTest(livingRoomNo, startTime, endTime);
     	return betweenDataList;
     }
     
@@ -287,7 +287,7 @@ public class MainController {
     	List<CjmTest> latestIotTestList = null ;
     	long now = (long) System.currentTimeMillis() / 1000;
     	//long 타입을 String변환 처리 애매
-    	latestIotTestList = cjmTestDao.getLatestFindBySenseTime(livingRoomNo, now);
+//    	latestIotTestList = cjmTestDao.getLatestFindBySenseTime(livingRoomNo, now);
     	
     	return latestIotTestList;
     }

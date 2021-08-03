@@ -50,15 +50,17 @@
 			<scope>runtime</scope>
 		</dependency>
 
-		<!-- <dependency> <groupId>com.tmax</groupId> <artifactId>tibero6-jdbc</artifactId> 
+		<dependency> <groupId>com.tmax</groupId> <artifactId>tibero6-jdbc</artifactId> 
 			<version>FS06</version> <scope>system</scope> <systemPath>${project.basedir}/lib/tibero6-jdbc.jar</systemPath> 
-			</dependency> mvn install:install-file -Dfile=./lib/tibero6-jdbc.jar -Dpackaging=jar 
+			</dependency> 
+			
+			<!--  mvn install:install-file -Dfile=./lib/tibero6-jdbc.jar -Dpackaging=jar 
 			-DgroupId=com.tmax.tibero -DartifactId=tibero6-jdbc -Dversion=6.0 -->
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.tmax.tibero</groupId>
 			<artifactId>tibero6-jdbc</artifactId>
 			<version>6.0</version>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>

@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.esez.mdb.model.tibero.IotTest;
-import com.esez.mdb.repository.tibero.IotTestTiberoRepository;
+//import com.esez.mdb.repository.tibero.IotTestTiberoRepository;
 
 @SpringBootTest
 public class MainControllerTest {
 	
 	  Random random = new Random();
-	  @Autowired
-	  private IotTestTiberoRepository iotTestDao;
+//	  @Autowired
+//	  private IotTestTiberoRepository iotTestDao;
 	    
 	 @Test
 	 public void putTestData() {
@@ -40,7 +40,7 @@ public class MainControllerTest {
 	    	myTest.setTemperature(temperature);
 	    	assertThat(myTest.getTemperature()).isNotNull();
 	    	
-	    	iotTestDao.save(myTest);
+//	    	iotTestDao.save(myTest);
 	    	
 	 }
 }
